@@ -4,8 +4,8 @@
   "description": "Front-End Challenge",
   "main": "index.js",
   "scripts": {
-    "start": "npm run build",
-    "build": "concurrently -p \"[{name}]\" -n \"CLEAN, CSS, HTML, SVG, PNG, JPG\" -c \"red, cyan, magenta, green, yellow, blue\"  \"npm run clean\" \"npm run scss-build\" \"npm run copy:html\" \"npm run copy:images:svg\" \"npm run copy:images:png\" \"npm run copy:images:jpg\" ",
+    "start": "npm run scss-build && npm run copyall",
+    "dev": "concurrently -p \"[{name}]\" -n \"CSS, DIST\" -c \"cyan, magenta\" \"npm run scss-build\" \"npm run copyall\" ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "scss-watch": "node-sass ./src/assets/scss -o ./src/assets/css --source-comments -w",
     "scss-build": "node-sass ./src/assets/scss -o ./dist/assets/css --output-style compressed",
@@ -15,7 +15,9 @@
     "copy:images:svg": "cpx ./src/assets/images/*.svg ./dist/assets/images",
     "copy:images:png": "cpx ./src/assets/images/*.png ./dist/assets/images",
     "copy:images:jpg": "cpx ./src/assets/images/*.jpg ./dist/assets/images",
-    "clean": "rimraf ./dist"
+    "copyall": "cpx ./src/**/*.{html,png,jpg,svg} ./dist",
+    "clean": "rimraf ./dist",
+    "img": "webpack"
   },
   "keywords": [],
   "author": "",
@@ -23,9 +25,12 @@
   "devDependencies": {
     "browser-sync": "^2.26.7",
     "concurrently": "^5.1.0",
+    "copy-webpack-plugin": "^5.1.1",
     "copyfiles": "^2.2.0",
     "cpx": "^1.5.0",
     "node-sass": "^4.13.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11"
   }
 }
