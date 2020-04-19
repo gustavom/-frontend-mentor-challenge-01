@@ -4,9 +4,24 @@
   "description": "Front-End Challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npm run build",
+    "build": "concurrently -p \"[{name}]\" -n \"CLEAN,CSS, HTML\" -c \"red, cyan, magenta\"  \"npm run clean\" \"npm run scss-build\" \"npm run copy:html\" ",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scss-watch": "node-sass ./src/assets/scss -o ./src/assets/css --source-comments -w",
+    "scss-build": "node-sass ./src/assets/scss -o ./dist/assets/css --source-comments",
+    "watch": "concurrently -p \"[{name}]\" -n \"CSS, Browser-Sync\" -c \"cyan, magenta\"  \"npm run scss-watch\" \"npm run serve\" ",
+    "serve": "browser-sync start --server --cwd './src/' --files 'src/assets/css/*.css, *.html'",
+    "copy:html": "cpx ./src/*.html ./dist",
+    "clean": "rimraf ./dist"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "concurrently": "^5.1.0",
+    "cpx": "^1.5.0",
+    "node-sass": "^4.13.1",
+    "rimraf": "^3.0.2"
+  }
 }
