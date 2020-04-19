@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run build",
-    "build": "concurrently -p \"[{name}]\" -n \"CLEAN,CSS, HTML\" -c \"red, cyan, magenta\"  \"npm run clean\" \"npm run scss-build\" \"npm run copy:html\" ",
+    "build": "concurrently -p \"[{name}]\" -n \"CLEAN, CSS, HTML, IMAGES\" -c \"red, cyan, magenta, yellow\"  \"npm run clean\" \"npm run scss-build\" \"npm run copy:html\" \"npm run copy:images\" ",
     "test": "echo \"Error: no test specified\" && exit 1",
     "scss-watch": "node-sass ./src/assets/scss -o ./src/assets/css --source-comments -w",
-    "scss-build": "node-sass ./src/assets/scss -o ./dist/assets/css --source-comments",
+    "scss-build": "node-sass ./src/assets/scss -o ./dist/assets/css --output-style compressed",
     "watch": "concurrently -p \"[{name}]\" -n \"CSS, Browser-Sync\" -c \"cyan, magenta\"  \"npm run scss-watch\" \"npm run serve\" ",
     "serve": "browser-sync start --server --no-ghost-mode --no-ui --port 7777 --startPath /src --files 'src/assets/css/*.css, *.html'",
     "copy:html": "cpx ./src/*.html ./dist",
+    "copy:images": "cpx ./src/assets/images/* ./dist/assets/images",
     "clean": "rimraf ./dist"
   },
   "keywords": [],
